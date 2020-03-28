@@ -135,6 +135,47 @@ void Queue_Priority()
 
 }
 
+//First_Come_First_Serve() function for third highest priority process.
+void First_Come_First_Serve()
+{
+	Waiting_Time_3[0] = 0;   
+    for(i=1;i<l;i++)
+    {
+        Waiting_Time_3[i] = 0;
+        for(p=0;p<l;p++)
+        {
+            Waiting_Time_3[i]=Waiting_Time_3[i]+Burst_Time_3[p];
+        }
+    }
+    printf("\nProcess\t\tBurst Time\tWaiting Time\tTurnaround Time\n");
+    for(i=0;i<l;i++)
+    {
+        Turn_Around_Time_3[i]=Burst_Time_3[i]+Waiting_Time_3[i];
+        Avg_Waiting_Time_3=Avg_Waiting_Time_3+Waiting_Time_3[i];
+        Avg_Turn_Around_Time_3=Avg_Turn_Around_Time_3+Turn_Around_Time_3[i];
+        printf("\nProcess[%d]\t\t%d\t\t%d\t\t%d\n",i+1,Burst_Time_3[i],Waiting_Time_3[i],Turn_Around_Time_3[i]);
+    }
+    Avg_Waiting_Time_3=Avg_Waiting_Time_3/l;
+    Avg_Turn_Around_Time_3=Avg_Turn_Around_Time_3/l;
+    printf("\nAverage Waiting Time=%f",Avg_Waiting_Time_3);
+    printf("\nAverage Turnaround Time=%f",Avg_Turn_Around_Time_3);
+    for(i=0;i<l;i++)
+    {
+    	while(Burst_Time_3[i]!=0)
+    	{
+    		if(Burst_Time_3[i]>10)
+    		{
+				printf("\nProcess[%d] of Queue3 is using CPU for 10 units",i+1);
+				Burst_Time_3[i]=Burst_Time_3[i]-10;
+			}
+			else if(Burst_Time_3[i]<=10)
+			{
+				printf("\nProcesjs[%d] of Queue2 is using CPU  for %d units",i+1,Burst_Time_3[i]);
+				Burst_Time_3[i]=0;
+			}
+		}
+	}
+}
 
 int main()
 {
