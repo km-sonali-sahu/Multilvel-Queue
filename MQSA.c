@@ -70,7 +70,41 @@ int main()
 			t3=t3+bt[i];
 		}
 	}
-	
+//time quantum between the three queue is 10 unit.
+	printf("Time Quantum between the 3 queues is 10\n");
+    for(i=1;i<Total;i=i+10)
+    {
+	    if(t1>10)
+	    {
+		    printf("Queue1 is using CPU for 10 units\n");
+		    t1=t1-10;
+	    }
+      	else if(t1<=10&&t1!=0)
+      	{
+	     	printf("Queue1 is using CPU for %d units\n",t1);
+		    t1=0;
+	    }
+	    if(t2>10)
+	    {
+		    printf("Queue2 is using CPU for 10 units\n");
+		    t2=t2-10;
+	    }
+	    else if(t2<=10&&t2!=0)
+     	{
+	     	printf("Queue2 is using CPU for %d units\n",t2);
+	    	t2=0;
+	    }
+	    if(t3>10)
+	    {
+		    printf("Queue3 is using CPU for 10 units\n");
+		    t3=t3-10;
+	    }
+	    else if(t3<=10&&t3!=0)
+	    {
+		    printf("Queue3 is using CPU for %d units\n",t3);
+		    t3=0;
+	    }
+   }
 	
 	Round_Robin_4();
 	First_Come_First_Serve();
