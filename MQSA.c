@@ -62,6 +62,79 @@ void Round_Robin_4()
         }
     } 
 }
+Avg_Waiting_Time_1=Avg_Waiting_Time_1/j;
+    Avg_Turn_Around_Time_1=Avg_Turn_Around_Time_1/j;
+    printf("\nAverage Waiting Time:%f",Avg_Waiting_Time_1); 
+    printf("\nAverage Turnaround Time:%f\n",Avg_Turn_Around_Time_1); 
+}
+
+//Queue_Priority() function using for the second highest priority process.
+void Queue_Priority()
+{
+	for(i=0;i<k;i++)
+    {
+        Position=i;
+        for(q=i+1;q<k;q++)
+        {
+            if(Priority_2[q]<Priority_2[Position])
+            {
+                Position=q;
+            }
+        }
+        Temp1=Priority_2[i];
+        Priority_2[i]=Priority_2[Position];
+        Priority_2[Position]=Temp1; 
+        
+        Temp1=Burst_Time_2[i];
+        Burst_Time_2[i]=Burst_Time_2[Position];
+        Burst_Time_2[Position]=Temp1;
+        
+        Temp1=Process_2[i];
+        Process_2[i]=Process_2[Position];
+        Process_2[Position]=Temp1;
+    }
+    Waiting_Time_2[0]=0;
+    for(i=1;i<k;i++)
+    {
+        Waiting_Time_2[i]=0;
+        for(q=0;q<i;q++)
+        {
+            Waiting_Time_2[i]=Waiting_Time_2[i]+Burst_Time_2[j];
+        }
+        sum=sum+Waiting_Time_2[i];
+    }
+    Avg_Waiting_Time_2=sum/k;
+    sum=0;
+    printf("\nProcess ID\t\tBurst Time\t Waiting Time\t Turnaround Time\n");
+    for(i=0;i<k;i++)
+    {
+    	Turn_Around_Time_2[i]=Burst_Time_2[i]+Waiting_Time_2[i];
+        sum=sum+Turn_Around_Time_2[i];
+        printf("\nProcess[%d]\t\t%d\t\t %d\t\t %d\n",Process_2[i],Burst_Time_2[i],Waiting_Time_2[i],Turn_Around_Time_2[i]);
+    }
+    Avg_Turn_Around_Time_2=sum/k;
+    printf("\nAverage Waiting Time:\t%f",Avg_Waiting_Time_2);
+    printf("\nAverage Turnaround Time:\t%f\n",Avg_Turn_Around_Time_2);
+    
+    for(i=0;i<k;i++)
+    {
+    	while(Burst_Time_2[i]!=0)
+    	{
+    		if(Burst_Time_2[i]>10)
+    		{
+				printf("\nProcess[%d] of Queue2 is using CPU for 10 units",i+1);
+				Burst_Time_2[i]=Burst_Time_2[i]-10;
+			}
+			else if(Burst_Time_2[i]<=10)
+			{
+				printf("\nProcess[%d] of Queue2 is using CPU for %d units",i+1,Burst_Time_2[i]);
+				Burst_Time_2[i]=0;
+			}
+		}
+	}
+
+}
+
 
 int main()
 {
